@@ -5,6 +5,66 @@ import { v } from "convex/values";
 const schema = defineSchema({
   ...authTables,
 
+  // SEO Blog articles (auto-generated daily by content engine)
+  articles: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    content: v.string(),
+    excerpt: v.string(),
+    category: v.string(),
+    tags: v.array(v.string()),
+    metaTitle: v.string(),
+    metaDescription: v.string(),
+    schemaMarkup: v.string(),
+    ctaUrl: v.string(),
+    ctaText: v.string(),
+    author: v.string(),
+    readTime: v.number(),
+    status: v.string(),
+    publishedAt: v.number(),
+    featuredImage: v.optional(v.string()),
+    heroImage: v.optional(v.string()),
+    heroImageAlt: v.optional(v.string()),
+    viewCount: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_category", ["category"])
+    .index("by_published", ["publishedAt"]),
+
+  // Article engagement: likes
+  articleLikes: defineTable({
+    articleId: v.id("articles"),
+    visitorId: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_article", ["articleId"])
+    .index("by_visitor", ["articleId", "visitorId"]),
+
+  // Article engagement: comments
+  articleComments: defineTable({
+    articleId: v.id("articles"),
+    name: v.string(),
+    content: v.string(),
+    visitorId: v.string(),
+    parentId: v.optional(v.id("articleComments")),
+    status: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_article", ["articleId"])
+    .index("by_visitor_id", ["visitorId"]),
+
+
+
+  // Article engagement: emoji reactions
+  articleReactions: defineTable({
+    articleId: v.id("articles"),
+    visitorId: v.string(),
+    emoji: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_article", ["articleId"])
+    .index("by_visitor", ["articleId", "visitorId"]),
   // Properties being monitored
   properties: defineTable({
     userId: v.id("users"),

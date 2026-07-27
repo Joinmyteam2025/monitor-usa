@@ -1,3 +1,5 @@
+import TermsPage from "@/pages/TermsPage";
+import PrivacyPage from "@/pages/PrivacyPage";
 import { AuthStrategyRoutes } from "./auth/AuthStrategyRoutes";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { Toaster } from "./components/ui/sonner";

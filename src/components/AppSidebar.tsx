@@ -7,6 +7,7 @@ import {
   Bot,
   Settings,
   Shield,
+  Newspaper,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -31,6 +32,7 @@ const navItems = [
   { title: "Emergency Contacts", url: "/contacts", icon: Users },
   { title: "AI Support", url: "/support", icon: Bot },
   { title: "Settings", url: "/settings", icon: Settings },
+  { title: "Blog", url: "/blog", icon: Newspaper },
 ];
 
 export function AppSidebar() {

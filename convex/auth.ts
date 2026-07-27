@@ -1,3 +1,4 @@
+import { internal } from "./_generated/api";
 import { convexAuth, getAuthUserId } from "@convex-dev/auth/server";
 import { query } from "./_generated/server";
 import { configuredAuthProviders } from "./viktorSpaceAuthConfig";
@@ -38,6 +39,19 @@ if (jwtPrivateKey) {
 // fails with "Provider not configured".
 export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
   providers: configuredAuthProviders(),
+  callbacks: {
+    async afterUserCreatedOrUpdated(ctx, args) {
+      if (args.existingUserId !== null) return;
+      const user = await ctx.db.get(args.userId);
+      if (!user) return;
+      const nameParts = ((user as any).name || "").split(" ");
+      await ctx.scheduler.runAfter(0, internal.registrationNotify.notifyNewRegistration, {
+        firstName: nameParts[0] || "",
+        lastName: nameParts.slice(1).join(" ") || "",
+        email: (user as any).email || args.profile.email || "",
+      });
+    },
+  },
 });
 
 export const currentUser = query({

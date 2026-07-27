@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import {
   Shield,
   ShieldCheck,
@@ -76,6 +77,7 @@ function formatTime(ts: number) {
 }
 
 export function DashboardPage() {
+  useDocumentTitle("Dashboard");
   const properties = useQuery(api.properties.list) ?? [];
   const devices = useQuery(api.devices.listAll) ?? [];
   const recentAlerts = useQuery(api.alerts.listRecent) ?? [];

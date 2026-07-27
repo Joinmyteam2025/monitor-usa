@@ -239,15 +239,22 @@ function LandingPageView({
     <div className="flex-1 flex flex-col overflow-hidden" style={{ background: BRAND.navy }}>
 
       {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${BRAND.navy} 0%, ${BRAND.navyLight} 50%, ${BRAND.navy} 100%)` }}>
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(${BRAND.cyan} 1px, transparent 1px), linear-gradient(90deg, ${BRAND.cyan} 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }} />
-        {/* Radial glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full opacity-20"
-          style={{ background: `radial-gradient(circle, ${BRAND.cyan}33 0%, transparent 70%)` }} />
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center" style={{ background: BRAND.navy }}>
+        {/* Cinematic Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/hero-poster.jpg"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+        {/* Dark cinematic overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628]/85 via-[#0a1628]/70 to-[#0a1628]/92" />
+        {/* Cyan accent glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(34,211,238,0.10),transparent_60%)]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 lg:py-40">
           <div className="text-center max-w-4xl mx-auto">
@@ -282,7 +289,7 @@ function LandingPageView({
                     <ArrowRight className="size-5 ml-1" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="text-base h-13 px-8 rounded-xl font-semibold border-white/20 text-white hover:bg-white/5 hover:border-white/40" asChild>
+                <Button size="lg" variant="outline" className="text-base h-13 px-8 rounded-xl font-semibold border-white/20 text-white bg-transparent hover:bg-white/5 hover:border-white/40" asChild>
                   <Link to="#pricing">View Plans</Link>
                 </Button>
               </div>

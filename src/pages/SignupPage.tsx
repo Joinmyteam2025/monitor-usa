@@ -1,8 +1,10 @@
 import { Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SignUp } from "@/components/SignUp";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 export function SignupPage() {
+  useDocumentTitle("Sign Up");
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-12" style={{ background: "#0B1B2B" }}>
       <div className="w-full max-w-md">
