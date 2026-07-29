@@ -32,3 +32,5 @@ npm-debug.log*
 
 # Viktor Spaces
 .viktor-spaces/
+.convex/
+.vercel/
