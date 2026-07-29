@@ -5,6 +5,129 @@ import { v } from "convex/values";
 const schema = defineSchema({
   ...authTables,
 
+  // SEO Blog articles (auto-generated daily by content engine)
+
+  // ═══ LIFECYCLE ENGINE ═══
+  
+  // Lifecycle contacts — the central state machine
+  lifecycleContacts: defineTable({
+    email: v.string(),
+    name: v.string(),
+    companyName: v.string(),
+    lifecycleState: v.string(),
+    previousState: v.string(),
+    stateChangedAt: v.number(),
+    lastEventAt: v.number(),
+    leadScore: v.number(),
+    healthScore: v.number(),
+    healthBand: v.optional(v.string()),
+    activationScore: v.number(),
+    activationMilestones: v.array(v.string()),
+    firstValueAt: v.optional(v.number()),
+    plan: v.string(),
+    source: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_state", ["lifecycleState"])
+    .index("by_score", ["leadScore"]),
+
+  lifecycleEvents: defineTable({
+    eventName: v.string(),
+    contactEmail: v.string(),
+    contactName: v.string(),
+    companyName: v.string(),
+    properties: v.any(),
+    sourceSystem: v.string(),
+    occurredAt: v.number(),
+  })
+    .index("by_email", ["contactEmail"])
+    .index("by_event", ["eventName"])
+    .index("by_time", ["occurredAt"]),
+
+  sequenceEnrollments: defineTable({
+    contactEmail: v.string(),
+    sequenceName: v.string(),
+    currentStep: v.number(),
+    status: v.string(),
+    enrolledAt: v.number(),
+    lastStepAt: v.optional(v.number()),
+    exitReason: v.optional(v.string()),
+  })
+    .index("by_email", ["contactEmail"])
+    .index("by_sequence", ["sequenceName", "status"]),
+
+  educationEnrollments: defineTable({
+    contactEmail: v.string(),
+    currentWeek: v.number(),
+    status: v.string(),
+    enrolledAt: v.number(),
+    lastSentAt: v.number(),
+    completedWeeks: v.array(v.number()),
+    pauseReason: v.string(),
+  })
+    .index("by_email", ["contactEmail"])
+    .index("by_status", ["status"]),
+
+  articles: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    content: v.string(),
+    excerpt: v.string(),
+    category: v.string(),
+    tags: v.array(v.string()),
+    metaTitle: v.string(),
+    metaDescription: v.string(),
+    schemaMarkup: v.string(),
+    ctaUrl: v.string(),
+    ctaText: v.string(),
+    author: v.string(),
+    readTime: v.number(),
+    status: v.string(),
+    publishedAt: v.number(),
+    featuredImage: v.optional(v.string()),
+    heroImage: v.optional(v.string()),
+    heroImageAlt: v.optional(v.string()),
+    viewCount: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_category", ["category"])
+    .index("by_published", ["publishedAt"]),
+
+  // Article engagement: likes
+  articleLikes: defineTable({
+    articleId: v.id("articles"),
+    visitorId: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_article", ["articleId"])
+    .index("by_visitor", ["articleId", "visitorId"]),
+
+  // Article engagement: comments
+  articleComments: defineTable({
+    articleId: v.id("articles"),
+    name: v.string(),
+    content: v.string(),
+    visitorId: v.string(),
+    parentId: v.optional(v.id("articleComments")),
+    status: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_article", ["articleId"])
+    .index("by_visitor_id", ["visitorId"]),
+
+
+
+  // Article engagement: emoji reactions
+  articleReactions: defineTable({
+    articleId: v.id("articles"),
+    visitorId: v.string(),
+    emoji: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_article", ["articleId"])
+    .index("by_visitor", ["articleId", "visitorId"]),
   // Properties being monitored
   properties: defineTable({
     userId: v.id("users"),

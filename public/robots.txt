@@ -1,0 +1,46 @@
+# robots.txt for monitorusa.ai
+# Allow ALL search engines and AI crawlers
+
+User-agent: *
+Allow: /
+Disallow: /checkout/
+Disallow: /settings
+Disallow: /dashboard
+Disallow: /api/
+
+# Explicitly allow AI search crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Sitemap
+Sitemap: https://monitorusa.ai/sitemap.xml

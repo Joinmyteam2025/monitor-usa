@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "./Header";
+import { PublicHeader } from "./PublicHeader";
 
 export function PublicLayout() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <PublicHeader />
       <main className="flex-1 flex flex-col">
         <Outlet />
       </main>

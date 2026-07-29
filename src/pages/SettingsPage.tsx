@@ -1,5 +1,6 @@
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useMutation, useQuery } from "convex/react";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { ChevronRight, Loader2, Moon, Palette, Sun, User } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +23,7 @@ import { getEmailPasswordSignInAvailable } from "@/lib/viktor-spaces-access/conf
 import { api } from "../../convex/_generated/api";
 
 export function SettingsPage() {
+  useDocumentTitle("Settings");
   const user = useQuery(api.auth.currentUser);
   const { theme, toggleTheme, switchable } = useTheme();
   const { signIn, signOut } = useAuthActions();

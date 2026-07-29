@@ -22,6 +22,7 @@ export function PublicHeader() {
           <a href="#pricing" className="text-sm text-slate-300 hover:text-white transition-colors">Plans</a>
           <span className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer">Features</span>
           <span className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer">FAQ</span>
+          <Link to="/blog" className="text-sm text-slate-300 hover:text-white transition-colors">Blog</Link>
         </nav>
 
         <div className="flex items-center gap-3">
